@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Posts para LinkedIn</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Enlazamos el CSS aquí -->
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-primary">Generador de Posts para LinkedIn</h1>
+        <form method="POST" class="mb-4">
+            <div class="form-group">
+                <input type="text" class="form-control" name="topic" placeholder="Ingresa un tema" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Generar Post</button>
+        </form>
+        {% if generated_post %}
+        <div class="post card">
+            <div class="post-image">
+                <img src="https://via.placeholder.com/1200x600" class="card-img-top" alt="Imagen del post" />
+                <!-- Imagen más grande -->
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">Post Generado:</h2>
+                <div class="post-content">
+                    <pre>{{ generated_post }}</pre>
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

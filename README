@@ -1,0 +1,22 @@
+# Generador de Posts para LinkedIn con IA
+
+Este proyecto es un generador automático de posts para LinkedIn utilizando la API de OpenAI. La aplicación permite a los usuarios generar contenido profesional para LinkedIn simplemente ingresando un tema.
+
+## Características
+
+- Generación automática de posts para LinkedIn
+- Interfaz de usuario intuitiva
+- Diseño responsivo
+- Integración con la API de OpenAI
+
+## Tecnologías Utilizadas
+
+- Python
+- Flask
+- OpenAI API
+- Bootstrap
+- HTML/CSS
+
+## Instalación
+
+1. Clonar el repositorio
