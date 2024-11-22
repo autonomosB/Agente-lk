@@ -18,7 +18,7 @@
         </header>
 
         <!-- Formulario Principal -->
-        <form method="POST" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <form id="post-form" method="POST" class="bg-white rounded-lg shadow-lg p-6 mb-8">
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Tema -->
                 <div class="col-span-2">
@@ -33,21 +33,21 @@
                     <label class="block text-gray-700 font-semibold mb-2">
                         🏢 Industria
                     </label>
-                    <select name="industry" class="w-full p-3 border rounded-lg bg-white">
+                    <select name="industry" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400">
                         <option value="general">General</option>
                         <option value="tecnologia">Tecnología</option>
                         <option value="marketing">Marketing</option>
-                        <option value="recursos_humanos">Recursos Humanos</option>
                         <option value="finanzas">Finanzas</option>
+                        <option value="recursos_humanos">Recursos Humanos</option>
                     </select>
                 </div>
 
                 <!-- Tono -->
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">
-                        🎭 Tono del Post
+                        🎭 Tono
                     </label>
-                    <select name="tone" class="w-full p-3 border rounded-lg bg-white">
+                    <select name="tone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400">
                         <option value="profesional">Profesional</option>
                         <option value="casual">Casual</option>
                         <option value="formal">Formal</option>
@@ -56,19 +56,28 @@
                 </div>
             </div>
 
-            <!-- Botón Generar -->
             <div class="mt-6 text-center">
-                <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                    ✨ Generar Post
+                <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700">
+                    Generar Post ✨
                 </button>
             </div>
         </form>
 
+        <!-- Loading Spinner -->
+        <div id="loading-spinner" class="hidden">
+            <div class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                    <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p class="text-gray-700 text-lg">Generando tu post profesional...</p>
+                    <p class="text-gray-500 text-sm mt-2">Esto puede tomar unos segundos</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Resultado -->
         {% if generated_post %}
         <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">📝 Tu Post Generado</h2>
-            <div class="post-content prose max-w-none">
+            <div class="post-content">
                 {{ generated_post|safe }}
             </div>
             <div class="mt-6 flex justify-center space-x-4">
@@ -82,7 +91,7 @@
         </div>
         {% endif %}
 
-        <!-- Mensaje de Error -->
+        <!-- Error Message -->
         {% if error_message %}
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-6" role="alert">
             <p>{{ error_message }}</p>
@@ -92,6 +101,10 @@
 
     <!-- Scripts -->
     <script>
+        document.getElementById('post-form').addEventListener('submit', function(e) {
+            document.getElementById('loading-spinner').classList.remove('hidden');
+        });
+
         function copyToClipboard() {
             const content = document.querySelector('.post-content').innerText;
             navigator.clipboard.writeText(content)
