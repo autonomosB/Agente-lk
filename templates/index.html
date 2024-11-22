@@ -4,37 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Posts para LinkedIn</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <!-- Enlazamos el CSS aquí -->
+    <title>Generador de Posts LinkedIn</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center text-primary">Generador de Posts para LinkedIn</h1>
-        <form method="POST" class="mb-4">
-            <div class="form-group">
-                <input type="text" class="form-control" name="topic" placeholder="Ingresa un tema" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Generar Post</button>
-        </form>
-        {% if generated_post %}
-        <div class="post card">
-            <div class="post-image">
-                <img src="https://via.placeholder.com/1200x600" class="card-img-top" alt="Imagen del post" />
-                <!-- Imagen más grande -->
-            </div>
-            <div class="card-body">
-                <h2 class="card-title">Post Generado:</h2>
-                <div class="post-content">
-                    <pre>{{ generated_post }}</pre>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2">✨ Generador Profesional de Posts LinkedIn</h1>
+            <p class="text-gray-600">Crea contenido impactante para tu perfil profesional</p>
+        </header>
+
+        <!-- Formulario Principal -->
+        <form method="POST" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Tema -->
+                <div class="col-span-2">
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        💡 Tema del Post
+                    </label>
+                    <textarea name="topic" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400" rows="3" placeholder="¿Sobre qué quieres escribir hoy?" required></textarea>
                 </div>
 
+                <!-- Industria -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        🏢 Industria
+                    </label>
+                    <select name="industry" class="w-full p-3 border rounded-lg bg-white">
+                        <option value="general">General</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="recursos_humanos">Recursos Humanos</option>
+                        <option value="finanzas">Finanzas</option>
+                    </select>
+                </div>
+
+                <!-- Tono -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        🎭 Tono del Post
+                    </label>
+                    <select name="tone" class="w-full p-3 border rounded-lg bg-white">
+                        <option value="profesional">Profesional</option>
+                        <option value="casual">Casual</option>
+                        <option value="formal">Formal</option>
+                        <option value="inspirador">Inspirador</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Botón Generar -->
+            <div class="mt-6 text-center">
+                <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    ✨ Generar Post
+                </button>
+            </div>
+        </form>
+
+        <!-- Resultado -->
+        {% if generated_post %}
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">📝 Tu Post Generado</h2>
+            <div class="post-content prose max-w-none">
+                {{ generated_post|safe }}
+            </div>
+            <div class="mt-6 flex justify-center space-x-4">
+                <button onclick="copyToClipboard()" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
+                    📋 Copiar
+                </button>
+                <button onclick="shareToLinkedIn()" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-200">
+                    🔗 Compartir en LinkedIn
+                </button>
             </div>
         </div>
         {% endif %}
+
+        <!-- Mensaje de Error -->
+        {% if error_message %}
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-6" role="alert">
+            <p>{{ error_message }}</p>
+        </div>
+        {% endif %}
     </div>
+
+    <!-- Scripts -->
+    <script>
+        function copyToClipboard() {
+            const content = document.querySelector('.post-content').innerText;
+            navigator.clipboard.writeText(content)
+                .then(() => alert('¡Contenido copiado!'))
+                .catch(err => console.error('Error al copiar:', err));
+        }
+
+        function shareToLinkedIn() {
+            const text = document.querySelector('.post-content').innerText;
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+    </script>
 </body>
 
 </html>
