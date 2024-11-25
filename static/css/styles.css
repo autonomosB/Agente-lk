@@ -1,0 +1,125 @@
+body {
+    background-color: #f3f4f6;
+}
+
+.container {
+    max-width: 800px;
+    /* Aumentar el ancho máximo del contenedor */
+    overflow: hidden;
+    /* Opcional: elimina las barras de desplazamiento */
+    white-space: normal;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.post {
+    margin-top: 20px;
+}
+
+.post-image img {
+    width: 100%;
+    /* La imagen ocupará el 100% del ancho del contenedor */
+    max-width: 800px;
+    /* Establece un ancho máximo para la imagen */
+    height: auto;
+    /* Mantiene la proporción de la imagen */
+    border-radius: 8px;
+    /* Bordes redondeados para la imagen */
+    display: block;
+    /* Cambia el display a block */
+    margin: 0 auto;
+    /* Centra la imagen horizontalmente */
+}
+
+.card {
+    border: 1px solid #ccc;
+    /* Borde alrededor de la tarjeta */
+    border-radius: 8px;
+    /* Bordes redondeados para la tarjeta */
+}
+
+.card-title {
+    margin-bottom: 15px;
+    /* Espacio debajo del título */
+}
+
+.hashtags {
+    color: #0077b5;
+    /* Color de los hashtags */
+    margin-top: 10px;
+    /* Espacio encima de los hashtags */
+}
+
+.post-content {
+    word-wrap: break-word;
+    /* Permite que las palabras largas se dividan y se ajusten al contenedor */
+    overflow-wrap: break-word;
+    /* Asegura que el texto largo se ajuste */
+    white-space: pre-wrap;
+    /* Mantiene los saltos de línea y ajusta el texto */
+    margin: 0;
+    /* Asegura que no haya margen que cause desplazamiento */
+    padding: 0;
+    /* Asegura que no haya padding que cause desplazamiento */
+}
+
+
+/* Estilos personalizados */
+
+.post-content {
+    white-space: pre-line;
+    line-height: 1.6;
+    color: #2d3748;
+}
+
+.post-content br {
+    margin-bottom: 0.5rem;
+}
+
+
+/* Animaciones */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+}
+
+.post-content {
+    white-space: pre-line;
+    line-height: 1.6;
+    color: #2d3748;
+}
+
+.post-content br {
+    margin-bottom: 0.5rem;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
